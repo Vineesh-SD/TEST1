@@ -19,11 +19,17 @@ void addpatient()
         printf("Enter patient ID : ");
         scanf("%d",&newnode -> id);
 
+        getchar();
+
         printf("Enter patient Name : ");
-        scanf(" %[^\n]",newnode -> name);
+        fgets(newnode->name, sizeof(newnode->name), stdin);
+
+        newnode->name[strcspn(newnode->name, "\n")] = '\0';
 
         printf("Enter patient Status : ");
-        scanf(" %[^\n]",newnode -> name);
+        fgets(newnode->status, sizeof(newnode->status), stdin);
+
+        newnode->status[strcspn(newnode->status, "\n")] = '\0';
 
         newnode -> next = NULL;
 
