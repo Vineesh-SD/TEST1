@@ -1,0 +1,139 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+struct patient {
+        int id ;
+        char name[50];
+        char status[50];
+        struct patient *next;
+};
+
+struct patient *head = NULL;
+
+void addpatient()
+{
+        struct patient *newnode = NULL;
+        newnode = (struct patient*)malloc(sizeof(struct patient));
+
+        printf("Enter patient ID : ");
+        scanf("%d",&newnode -> id);
+
+        printf("Enter patient Name : ");
+        scanf(" %[^\n]",newnode -> name);
+
+        printf("Enter patient Status : ");
+        scanf(" %[^\n]",newnode -> name);
+
+        newnode -> next = NULL;
+
+        if(head == NULL)
+        {
+        head = newnode;
+        }
+        else
+        {
+        struct patient *temp = head;
+        while(temp -> next != NULL)
+        {
+        temp = temp -> next;
+        }
+
+        temp -> next = newnode;
+
+        }
+        printf("Patient added successfully!!\n");
+
+}
+
+void updatestatus()
+{
+        int searchid = 0;
+        char newstatus[50];
+        int flag = 0;
+
+        printf("Enter patient Id to update : ");
+        scanf("%d",&searchid);
+
+        struct patient *temp = head;
+
+        while(temp != NULL)
+        {
+                if(temp -> id == searchid)
+                {
+                printf("Enter New status : ");
+                scanf(" %[^\n]",newstatus);
+                strcpy(temp->status,newstatus);
+                printf("Status updated Successfully!!\n");
+                return;
+                }
+        temp = temp -> next;
+        }
+
+        printf("Patient Id Not found!\n");
+
+}
+
+void displaypatients()
+{
+        if(head == NULL)
+        {
+        printf("No Patients Available");
+        return;
+        }
+
+        printf("------ PATIENTS RECORD ------\n");
+
+        struct patient *temp = head;
+
+        while(temp != NULL)
+        {
+                printf("Patient id     : %d\n",temp -> id);
+                printf("Patient Name   : %s\n",temp -> name);
+                printf("Patient Status : %s\n",temp -> status);
+                printf("--------------------------------------\n");
+                temp = temp -> next;
+        }
+
+}
+
+
+int main()
+{
+    int choice;
+
+    while(1)
+    {
+        printf("\n===== HOSPITAL MANAGEMENT =====\n");
+        printf("1. Add Patient\n");
+        printf("2. Update Status\n");
+        printf("3. Display Patients\n");
+        printf("4. EXIT\n");
+
+        printf("Enter your choice : ");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+                addpatient();
+                break;
+
+            case 2:
+                updatestatus();
+                break;
+
+            case 3:
+                displaypatients();
+                break;
+
+            case 4:
+                printf("Exiting Program...\n");
+                return 0;
+
+            default:
+                printf("Invalid Choice!\n");
+        }
+    }
+
+    return 0;
+}
